@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<title>TweenMax - Play() and Pause()</title>
+	<meta charset="UTF-8">
+	<style>
+		body {
+			background-color: #1d1d1d;
+			font-family: sans-serif;
+			color: #fff;
+			margin: 40px;
+			font-size: 16px;
+		}
+		
+		#box {
+			background: #88ce02;
+			width: 100px;
+			height: 100px;
+		}
+		
+		#button-pause {
+			background: #f9b339;
+			color: #000;
+			padding: 15px 45px 15px 45px;
+			margin-top: 100px;
+			cursor: pointer;
+			display: table;
+		}
+		
+		#button-play {
+			background: #88ce02;
+			color: #000;
+			padding: 15px 45px 15px 45px;
+			margin-top: 20px;
+			cursor: pointer;
+			display: table;
+		}
+    </style>
+    <script src='TweenMax.min.js'></script>
+    <script src='jquery.min.js'></script>
+  </head>
+
+  <body>
+  
+	<div id="box"></div>
+	<div id="button-pause">pause</div>
+	<div id="button-play">play</div>
+
+	<script>
+      
+		var tween = TweenMax.to("#box", 2, {x: "1200px"});
+		
+		$("#button-pause").click(function(){
+  
+			tween.pause();
+		  
+		});
+		
+		$("#button-play").click(function(){
+  
+			tween.play();
+		  
+		});
+		
+		$("#button").click(function(){
+  
+			tween.kill();
+		  
+		});
+		
+	</script>
+    
+  </body>
+</html>
+ 

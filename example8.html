@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<title>TweenMax - Time Line</title>
+	<meta charset="UTF-8">
+	<style>
+		body {
+			background-color: #1d1d1d;
+			font-family: sans-serif;
+			color: #fff;
+			margin: 40px;
+			font-size: 16px;
+		}
+		
+		#box {
+			background: #88ce02;
+			width: 100px;
+			height: 100px;
+		}
+		#rectangle {
+			background: #a00;
+			width: 400px;
+			height: 50px;
+			margin-left: 400px;
+		}
+		.progress {
+			margin-top: 30px;
+		}
+		.progressInfo {
+			margin-top: 20px;
+			border: 1px solid #aaa;
+			padding: 20px;
+		}
+		.progressButtons {
+			margin-top: 10px;
+		}
+    </style>
+    <script src='TweenMax.min.js'></script>
+    <script src='jquery.min.js'></script>
+    <script src='jquery-ui.min.js'></script>
+	<link href="jquery-ui.css" rel="stylesheet" type="text/css">
+
+  </head>
+
+  <body>
+  
+ 		<div id="box"></div>
+		<div id="rectangle"></div>
+		
+		<img src="deer.png" width="356" height="325" id="deer"/>
+    
+	
+	<div class="progress">
+		<div id="progressSlider" class="slider"></div>
+	</div>
+	
+	<div class="progressInfo">
+		<p>progressValue: <span id="progressValue"></span></p>
+		<p>timeValue: <span id="timeValue"></span></p>
+	</div>
+	
+	<div class="progressButtons">
+		<button id="buttonPause">Pause</button>
+		<button id="buttonPlay">Play</button>
+		<button id="buttonRestart">Restart</button>
+	</div>
+	
+	<script>
+      
+		var timeLine = new TimelineLite({onUpdate:updateUI});
+			
+		var box = $("#box");
+		var rectangle = $("#rectangle");
+		var deer = $("#deer");
+		var timeValue = $("#timeValue");
+		var progressValue = $("#progressValue");
+		var progressSlider = null;
+	  
+		progressSlider = $("#progressSlider").slider({
+            range: false,
+            min: 0,
+            max: 100,
+            step:.1,
+            slide: function ( event, ui ) {
+                timeLine.pause();
+                timeLine.progress( ui.value/100 );
+            }
+        });
+	
+		function updateUI() {
+	        progressSlider.slider("value", timeLine.progress() *100);
+	         
+	        progressValue.html(timeLine.totalProgress().toFixed(2));
+			timeValue.html(timeLine.time().toFixed(2));
+	    }   
+		
+		function getBoxAnimation() {
+	        var tl = new TimelineLite();
+			tl.from(box, 0.3, {alpha: 0})
+	            .to(box, 0.5, {skewX: 45})
+	            .to(box, 0.8, {skewX: -45})
+	            .to(box, 0.5, {skewX: 5, skewY: -10})
+	            .to(box, 0.5, {skewX: 20, skewY: 5})
+	            .to(box, 0.5, {alpha: 1});
+	        return tl;        
+	    }
+	  
+		function getRectangleAnimation() {
+	        var tl = new TimelineLite();
+			tl.from(rectangle, 0.3, {alpha: 1})
+	            .to(rectangle, 0.5, {skewX: 45})
+	            .to(rectangle, 0.8, {skewX: -45})
+	            .to(rectangle, 0.5, {skewX: 45, skewY: -50})
+	            .to(rectangle, 0.5, {skewX: 20, skewY: 65})
+	            .to(rectangle, 0.5, {alpha: 1});
+	        return tl;        
+	    }
+	
+		function getDeerAnimation() {
+	        var tl = new TimelineLite();
+			tl.from(deer, 0.3, {alpha: 1})
+	            .to(deer, 0.5, {skewX: 145})
+	            .to(deer, 0.8, {skewX: -45})
+	            .to(deer, 0.5, {skewX: 5, skewY: -50})
+	            .to(deer, 0.5, {skewX: 40, skewY: 25})
+	            .to(deer, 0.5, {alpha: 1});
+	        return tl;        
+	    }
+	
+		timeLine
+		.add(getBoxAnimation())
+		.add(getRectangleAnimation())
+		.add(getDeerAnimation());
+		
+		$("#buttonPause").click(function(){ timeLine.pause(); });
+		$("#buttonPlay").click(function(){ timeLine.play();	});
+		$("#buttonRestart").click(function(){ timeLine.restart(); });
+		
+	</script>
+    
+  </body>
+</html>
+ 

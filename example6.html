@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<title>TweenMax - Kill()</title>
+	<meta charset="UTF-8">
+	<style>
+		body {
+			background-color: #1d1d1d;
+			font-family: sans-serif;
+			color: #fff;
+			margin: 40px;
+			font-size: 16px;
+		}
+		
+		#box {
+			background: #88ce02;
+			width: 100px;
+			height: 100px;
+		}
+		
+		#button {
+			background: #eef939;
+			color: #000;
+			padding: 15px 45px 15px 45px;
+			margin-top: 100px;
+			cursor: pointer;
+			display: table;
+		}
+    </style>
+    <script src='TweenMax.min.js'></script>
+    <script src='jquery.min.js'></script>
+  </head>
+
+  <body>
+  
+	<div id="box"></div>
+	<div id="button">kill</div>
+
+	<script>
+      
+		var tween = TweenMax.to("#box", 2, {x: "1200px"});
+		
+		$("#button").click(function(){
+  
+			tween.kill();
+		  
+		});
+		
+	</script>
+    
+  </body>
+</html>
+ 
